@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c7be1006189450448426a15cc203958, type: 3}
+  m_Name: RedSkin
+  m_EditorClassIdentifier: 
+  _skin: {fileID: 560762265650884472, guid: eebef25b8a3dc254f8e7ac49385780ed, type: 3}
+  _label: "Red \u043A\u0443\u0431"
+  _icon: {fileID: 21300000, guid: 75af0f95b59b559419f0f36bdaae2403, type: 3}
+  _price: 3
+  _isBuy: 1

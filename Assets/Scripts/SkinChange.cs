@@ -36,12 +36,12 @@ public class SkinChange : MonoBehaviour
     private void OnSkinBought(Skin skin)
     {
         _skinTemplates.Add(skin);
+        SetSkin(skin);
+        TurnOffSkin(skin);
     }
 
-    public void NextSkinFase()
+    public void SwitchNextSkin()
     {
-        RemoveSkin(_skinTemplates[_currentSkinNumber]);
-
         if (_currentSkinNumber == _skinTemplates.Count - 1)
             _currentSkinNumber = 0;
         else
@@ -50,13 +50,11 @@ public class SkinChange : MonoBehaviour
         if (_currentSkinNumber != _previousSkinNumber)
             _previousSkinNumber = _currentSkinNumber;
 
-        ChangeSkinFase(_skinTemplates[_currentSkinNumber]);
+        ChangeSkin(_skinTemplates[_currentSkinNumber]);
     }
 
-    public void PreviousSkinFase()
+    public void SwitchPreviousSkin()
     {
-        RemoveSkin(_skinTemplates[_currentSkinNumber]);
-
         if (_currentSkinNumber == 0)
             _currentSkinNumber = _skinTemplates.Count - 1;
         else
@@ -65,25 +63,49 @@ public class SkinChange : MonoBehaviour
         if(_currentSkinNumber != _previousSkinNumber)
            _previousSkinNumber = _currentSkinNumber;
 
-
-        ChangeSkinFase(_skinTemplates[_currentSkinNumber]);
+        ChangeSkin(_skinTemplates[_currentSkinNumber]);
     }
 
-    private void ChangeSkinFase(Skin skin)
+    private void EnableSkin(Skin skin)
     {
-        SetSkin(skin);
+        for (int i = 0; i < _skinTemplates.Count; i++)
+        {
+            if (_skinTemplates[i] == skin)
+            {
+                transform.GetChild(i).gameObject.SetActive(true);
+            }
+        }
+    }
+
+    private void TurnOffSkin(Skin skin)
+    {
+        for (int i = 0; i < _skinTemplates.Count; i++)
+        {
+            if (_skinTemplates[i] == skin)
+            {
+                transform.GetChild(i).gameObject.SetActive(false);
+            }
+        }
     }
 
     private void SetSkin(Skin skin)
     {
         Instantiate(skin, transform);
+        EnableSkin(skin);
     }
 
-    private void RemoveSkin(Skin skin)
+    private void ChangeSkin(Skin skin)
     {
-        if(skin == null)
+        for(int i = 0; i < _skinTemplates.Count; i++) 
         {
-            Destroy(skin);
+            if (_skinTemplates[i] == skin)
+            {
+                transform.GetChild(i).gameObject.SetActive(true);
+            }
+            else
+            {
+                transform.GetChild(i).gameObject.SetActive(false);
+            }
         }
     }
 }

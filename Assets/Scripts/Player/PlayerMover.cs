@@ -19,8 +19,7 @@ public class PlayerMover : MonoBehaviour
     {
         _startPosition = transform.position;
         _rigidbody = GetComponent<Rigidbody2D>();
-        _rigidbody.velocity = Vector2.zero;
-        _rigidbody.isKinematic = true;
+        TurnOffControl();
     }
 
     private void Update()

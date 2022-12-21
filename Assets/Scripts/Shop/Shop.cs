@@ -27,15 +27,14 @@ public class Shop : MonoBehaviour
     {
         item.SetSkin(cakeItem);
         item.SellButtonClick += OnSellButtonClick;
-        item.name = _template.name + (transform.childCount + 1);
     }
 
     private void OnSellButtonClick(SkinShopItem skinItem, Item item)
     {
-        TrySellCake(skinItem, item);
+        TrySellSkin(skinItem, item);
     }
 
-    private void TrySellCake(SkinShopItem skinItem, Item item)
+    private void TrySellSkin(SkinShopItem skinItem, Item item)
     {
         if (_player.CheckSolvency(skinItem.Price))
         {

@@ -5,6 +5,7 @@ using UnityEngine;
 public class Game : MonoBehaviour
 {
     [SerializeField] private Player _player;
+    [SerializeField] private PlayerMover _playerMover;
     [SerializeField] private StartScreen _startScreen;
     [SerializeField] private GameOverScreen _gameOverScreen;
     [SerializeField] private GameScreen _gameScreen;
@@ -60,12 +61,12 @@ public class Game : MonoBehaviour
 
     private void Start()
     {
-        Time.timeScale = 0;
         _startScreen.Open();
         _gameOverScreen.Close();
         _gameScreen.Close();
         _pauseMenuScreen.Close();
         _shopScreen.Close();
+        _skinChangeScreen.Close();
     }
 
     private void OnStartGame()
@@ -91,7 +92,7 @@ public class Game : MonoBehaviour
 
     private void OnPauseMenuScreen()
     {
-        Time.timeScale = 0;
+        _playerMover.TurnOffControl();
         _gameScreen.Close();
         _pauseMenuScreen.Open();
     }
@@ -124,12 +125,12 @@ public class Game : MonoBehaviour
     {
         _pauseMenuScreen.Close();
         _gameScreen.Open();
-        Time.timeScale = 1;
+        //Time.timeScale = 1;
     }
 
     private void StartGame()
     {
-        Time.timeScale = 1;
+        //Time.timeScale = 1;
         _player.ResetPlayer();
         _gameScreen.Open();
     }

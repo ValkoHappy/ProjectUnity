@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class Coin : MonoBehaviour
 {
+    [SerializeField] private int _profit;
     [SerializeField] private ParticleSystem _particle;
+
+    public int Profit => _profit;
 
     public void Die()
     {

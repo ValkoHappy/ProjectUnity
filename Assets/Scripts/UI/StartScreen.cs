@@ -8,19 +8,16 @@ public class StartScreen : Screen
 {
     [SerializeField] private Button _playButton;
     [SerializeField] private Button _shopButton;
-    [SerializeField] private Button _settingsButton;
     [SerializeField] private Button _skinChangeButton;
 
     public event UnityAction PlayButtonClick;
     public event UnityAction ShopButtonClick;
-    public event UnityAction SettingsButtonClick;
     public event UnityAction SkinChangeButtonClick;
 
     private void OnEnable()
     {
         _playButton.onClick.AddListener(OnPlayButton);
         _shopButton.onClick.AddListener(OnShopButton);
-        _settingsButton.onClick.AddListener(OnSettingsButton);
         _skinChangeButton.onClick.AddListener(OnSkinChangeButton);
     }
 
@@ -28,7 +25,6 @@ public class StartScreen : Screen
     {
         _playButton.onClick.RemoveListener(OnPlayButton);
         _shopButton.onClick.RemoveListener(OnShopButton);
-        _settingsButton.onClick.RemoveListener(OnSettingsButton);
         _skinChangeButton.onClick.RemoveListener(OnSkinChangeButton);
     }
 
@@ -39,11 +35,6 @@ public class StartScreen : Screen
     public void OnShopButton()
     {
         ShopButtonClick?.Invoke();
-    }
-
-    public void OnSettingsButton()
-    {
-        SettingsButtonClick?.Invoke();
     }
 
     public void OnSkinChangeButton()

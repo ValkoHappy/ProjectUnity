@@ -7,31 +7,41 @@ public class OakEnemy : MonoBehaviour
 {
     [SerializeField] private Bullet _bullet;
     [SerializeField] private Transform _shootPoint;
-    [SerializeField] private float _timer;
+    [SerializeField] private float _waitForSecounds;
 
-    private float _time;
     private Animator _animator;
+    private Coroutine _shoot;
     private int AttackKash = Animator.StringToHash("Attack");
 
     private void Start()
     {
         _animator = GetComponent<Animator>();
+        StartShoot();
     }
 
-    private void Update()
+    private void StartShoot()
     {
-        _time += Time.deltaTime;
-
-        if (_time >= _timer)
+        if (_shoot != null)
         {
-            _animator.SetTrigger(AttackKash);
-            Shoot(_shootPoint);
-            _time = 0;
+            StopCoroutine(_shoot);
         }
+        _shoot = StartCoroutine(Shoot());
     }
 
-    public void Shoot(Transform shootPoint)
+    public void CreateBullet(Transform shootPoint)
     {
         Instantiate(_bullet, shootPoint.position, Quaternion.identity);
+    }
+
+    private IEnumerator Shoot()
+    {
+        var waitForSecounds = new WaitForSeconds(_waitForSecounds);
+
+        _animator.SetTrigger(AttackKash);
+        CreateBullet(_shootPoint);
+
+        yield return waitForSecounds;
+
+        StartShoot();
     }
 }

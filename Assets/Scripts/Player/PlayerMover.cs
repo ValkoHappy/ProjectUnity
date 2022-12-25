@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(Rigidbody2D), typeof(BoxCollider2D))]
 public class PlayerMover : MonoBehaviour
 {
     [SerializeField] private float _speed;
@@ -11,6 +11,7 @@ public class PlayerMover : MonoBehaviour
 
     private Vector2 _startPosition;
     private Rigidbody2D _rigidbody;
+    private BoxCollider2D _collider;
     private bool _jumpSide = true;
     private bool _collisionWithAnObject = true;
     private int _doubleJump;
@@ -19,6 +20,7 @@ public class PlayerMover : MonoBehaviour
     {
         _startPosition = transform.position;
         _rigidbody = GetComponent<Rigidbody2D>();
+        _collider = GetComponent<BoxCollider2D>();
         TurnOffControl();
     }
 
@@ -71,6 +73,7 @@ public class PlayerMover : MonoBehaviour
         transform.position = _startPosition;
         _rigidbody.velocity = Vector2.zero;
         _rigidbody.isKinematic = true;
+        _collider.enabled = true;
         _doubleJump = 0;
         _collisionWithAnObject = true;
     }
@@ -85,5 +88,19 @@ public class PlayerMover : MonoBehaviour
         _rigidbody.isKinematic = true;
         _rigidbody.velocity = Vector2.zero;
         _collisionWithAnObject = false;
+    }
+
+    public void TurnOnControl()
+    {
+        _rigidbody.velocity = Vector2.zero;
+        _rigidbody.isKinematic = true;
+        _collider.enabled = true;
+        _doubleJump = 0;
+        _collisionWithAnObject = true;
+    }
+
+    public void TurnOffCollider()
+    {
+        _collider.enabled = false;
     }
 }

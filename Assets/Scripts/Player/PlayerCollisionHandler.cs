@@ -1,18 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
-[RequireComponent(typeof(Player), typeof(PlayerMover))]
+[RequireComponent(typeof(PlayerMover))]
 public class PlayerCollisionHandler : MonoBehaviour
 {
     [SerializeField] private ParticleSystem _particleDie;
 
-    private Player _player;
     private PlayerMover _playerMover;
+
+    public UnityEvent CollideWithDanger;
+    public UnityEvent CollideWithCoin;
 
     private void Start()
     {
-        _player = GetComponent<Player>();
         _playerMover = GetComponent<PlayerMover>();
     }
 
@@ -21,20 +23,19 @@ public class PlayerCollisionHandler : MonoBehaviour
         if (collision.TryGetComponent(out Danger danger) || collision.TryGetComponent(out Bullet bullet) || collision.TryGetComponent(out GostEnemy gostEnemy))
         {
             Instantiate(_particleDie, transform.position, transform.rotation);
-            _playerMover.TurnOffControl();
-            _player.Die();
+            CollideWithDanger?.Invoke();
         }
 
         if (collision.TryGetComponent(out Coin coin))
         {
-            _player.AddCoin();
             coin.Die();
+            CollideWithCoin?.Invoke();
         }
 
         if (collision.TryGetComponent(out Checkpoint checkpoint))
         {
-                _playerMover.SetNewStartPositon(checkpoint.Point.transform.position);
-                checkpoint.StartAnimation();
+            _playerMover.SetNewStartPositon(checkpoint.Point.transform.position);
+            checkpoint.StartAnimation();
         }
     }
 }

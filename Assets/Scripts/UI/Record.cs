@@ -5,19 +5,19 @@ using UnityEngine;
 
 public class Record : MonoBehaviour
 {
-    [SerializeField] private Player _player;
+    [SerializeField] private PlayerStatistic _playerStatistic;
     [SerializeField] private TMP_Text _record;
 
     private void OnEnable()
     {
-        _record.text = _player.Record.ToString();
-        _player.RecordChanged += OnRecordChanged;
+        _record.text = _playerStatistic.Record.ToString();
+        _playerStatistic.RecordChanged += OnRecordChanged;
     }
 
     private void OnDisable()
     {
 
-        _player.RecordChanged -= OnRecordChanged;
+        _playerStatistic.RecordChanged -= OnRecordChanged;
     }
 
     private void OnRecordChanged(int record)

@@ -5,18 +5,18 @@ using UnityEngine;
 
 public class Money : MonoBehaviour
 {
-    [SerializeField] private Player _player;
+    [SerializeField] private PlayerWallet _playerWallet;
     [SerializeField] private TMP_Text _money;
 
     private void OnEnable()
     {
-        _money.text = _player.Money.ToString();
-        _player.MoneyChanged += OnMoneyChanged;
+        _money.text = _playerWallet.Money.ToString();
+        _playerWallet.MoneyChanged += OnMoneyChanged;
     }
 
     private void OnDisable()
     {
-        _player.MoneyChanged -= OnMoneyChanged;
+        _playerWallet.MoneyChanged -= OnMoneyChanged;
     }
 
     private void OnMoneyChanged(int record)

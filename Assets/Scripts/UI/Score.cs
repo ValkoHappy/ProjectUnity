@@ -5,18 +5,18 @@ using UnityEngine;
 
 public class Score : MonoBehaviour
 {
-    [SerializeField] private Player _player;
+    [SerializeField] private PlayerStatistic _playerStatistic;
     [SerializeField] private TMP_Text _score;
 
     private void OnEnable()
     {
-        _score.text = _player.Score.ToString();
-        _player.ScoreChanged += OnScoreChanged;
+        _score.text = _playerStatistic.Score.ToString();
+        _playerStatistic.ScoreChanged += OnScoreChanged;
     }
 
     private void OnDisable()
     {
-        _player.ScoreChanged -= OnScoreChanged;
+        _playerStatistic.ScoreChanged -= OnScoreChanged;
     }
 
     private void OnScoreChanged(int score)

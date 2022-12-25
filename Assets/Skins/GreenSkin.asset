@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3c7be1006189450448426a15cc203958, type: 3}
-  m_Name: RedSkin
+  m_Name: GreenSkin
   m_EditorClassIdentifier: 
-  _skin: {fileID: 560762265650884472, guid: eebef25b8a3dc254f8e7ac49385780ed, type: 3}
-  _label: "Red \u043A\u0443\u0431"
-  _icon: {fileID: 21300000, guid: 75af0f95b59b559419f0f36bdaae2403, type: 3}
-  _price: 3
-  _isBuy: 0
+  _skin: {fileID: 560762265650884472, guid: 2ec68db67a6c3d1489045b8d2c3a81bb, type: 3}
+  _label: "Green \u043A\u0443\u0431"
+  _icon: {fileID: 21300000, guid: 84b92d7fe76e9de43ae6cfcc81c2e0d6, type: 3}
+  _price: 5
+  _isBuy: 1

@@ -125,19 +125,18 @@ public class Game : MonoBehaviour
     {
         _pauseMenuScreen.Close();
         _gameScreen.Open();
-        //Time.timeScale = 1;
+        _playerMover.TurnOnControl();
     }
 
     private void StartGame()
     {
-        //Time.timeScale = 1;
-        _player.ResetPlayer();
+        _player.Restart();
         _gameScreen.Open();
     }
 
     public void OnGameOver()
     {
-        //Time.timeScale = 0;
+        _playerMover.TurnOffCollider();
         _gameOverScreen.Open();
     }
 }

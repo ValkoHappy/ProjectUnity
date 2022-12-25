@@ -3,43 +3,32 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-[RequireComponent(typeof(PlayerMover))]
+[RequireComponent(typeof(PlayerMover), typeof(PlayerWallet), typeof(PlayerStatistic))]
 public class Player : MonoBehaviour
 {
-    [SerializeField] private int _money;
-
     private PlayerMover _playerMover;
-    private int _record;
-    public int _score;
-    private int _previouseScore = 0;
-
-    public int Money => _money;
-    public int Record => _record;
-    public int Score => _score;
+    private PlayerWallet _wallet;
+    private PlayerStatistic _playerStatistics;
 
     public event UnityAction GameOver;
     public event UnityAction<Skin> SkinBought;
 
-    public event UnityAction<int> RecordChanged;
-    public event UnityAction<int> MoneyChanged;
-    public event UnityAction<int> ScoreChanged;
-
     private void Start()
     {
         _playerMover = GetComponent<PlayerMover>();
+        _wallet = GetComponent<PlayerWallet>();
+        _playerStatistics = GetComponent<PlayerStatistic>();
     }
 
     private void Update()
     {
-        ChangeScore();
+        ChangeStatistics();
     }
 
-    public void ResetPlayer()
+    public void Restart()
     {
         _playerMover.ResetPlayer();
-        _score = (int)transform.position.y;
-        _previouseScore = _score;
-        ScoreChanged?.Invoke(_score);
+        _playerStatistics.RestartScore();
     }
 
     public void Die()
@@ -47,38 +36,24 @@ public class Player : MonoBehaviour
         GameOver?.Invoke();
     }
 
-    public void AddCoin()
+    public void CollectCoin()
     {
-        _money++;
-        MoneyChanged?.Invoke(_money);
+        _wallet.AddCoin();
     }
 
     public bool CheckSolvency(int price)
     {
-        return _money >= price;
+        return _wallet.Money >= price;
     }
 
     public void BuySkin(SkinShopItem skinItem)
     {
-        WithdrawSkins(skinItem.Price);
+        _wallet.WithdrawSkins(skinItem.Price);
         SkinBought?.Invoke(skinItem.Skin);
     }
 
-    private void ChangeScore()
+    private void ChangeStatistics()
     {
-        _score = (int)transform.position.y;
-        if (_score > _previouseScore)
-        {
-            _previouseScore = _score;
-            _record = _score;
-            ScoreChanged?.Invoke(_score);
-            RecordChanged?.Invoke(_record);
-        }
-    }
-
-    private void WithdrawSkins(int amount)
-    {
-        _money -= amount;
-        MoneyChanged?.Invoke(_money);
+        _playerStatistics.ChangeScore();
     }
 }
